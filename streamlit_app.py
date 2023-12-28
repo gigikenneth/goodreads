@@ -107,7 +107,7 @@ with st.sidebar:
             data = load_data(uploaded_file)
     else:
         # Load the example dataset from GitHub
-        example_data_url = "https://raw.githubusercontent.com/gigikenneth/goodreads/blob/main/goodreads_library_export.csv"
+        example_data_url = "https://raw.githubusercontent.com/gigikenneth/goodreads/main/goodreads_library_export.csv"
         data = load_data(example_data_url)
 
     # If data is loaded, allow year selection
