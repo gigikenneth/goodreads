@@ -7,11 +7,17 @@ import matplotlib.pyplot as plt
 
 # Function to load data
 def load_data(uploaded_file):
-    data = pd.read_csv(uploaded_file)
+    if isinstance(uploaded_file, str):
+        data = pd.read_csv(uploaded_file)
+    else:
+        # Assuming uploaded_file is a file-like object
+        data = pd.read_csv(uploaded_file)
+
     data['Date Added'] = pd.to_datetime(data['Date Added'], errors='coerce')
     data['Date Read'] = pd.to_datetime(data['Date Read'], errors='coerce')
     data['Year Published'] = pd.to_numeric(data['Year Published'], errors='coerce')
     return data
+
 
 # Function for distribution of book ratings
 def plot_book_ratings(data, year=None):
