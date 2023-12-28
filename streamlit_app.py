@@ -158,6 +158,3 @@ if uploaded_file is not None:
         read_books_year = read_books[read_books['Date Read'].dt.year == year]
         fig_wc_year = generate_wordcloud(read_books_year, f"In {year}")
         st.pyplot(fig_wc_year)
-
-# Run this code in your Python environment after installing the necessary libraries
-# You can start the app by running 'streamlit run your_script_name.py' in the terminal
