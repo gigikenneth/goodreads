@@ -15,6 +15,3 @@ It offers both overall and yearly insights, making it a versatile tool for refle
 4. Distribution of Book Lengths: Understand the range of book lengths you tend to read.
 5. Read vs. Unread Books: Get a clear view of your read and unread books, both overall and for a specific year.
 6. Word Cloud of Book Title: Enjoy a creative display of the titles you've read, presented in a word cloud format.
-
-## Bugs
-- There's a bug with the WordCloud
