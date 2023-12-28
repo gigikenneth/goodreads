@@ -72,7 +72,10 @@ st.set_page_config(page_title="Goodreads Wrapped", layout="wide")
 # Main Streamlit app
 st.title("Goodreads Wrapped")
 
-uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
+# Sidebar for file upload
+with st.sidebar:
+    uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
+
 if uploaded_file is not None:
     data = load_data(uploaded_file)
 
@@ -88,17 +91,20 @@ if uploaded_file is not None:
     st.plotly_chart(fig2)
     st.markdown("Here's how you rated books added in 2023.")
 
-    # Most Common Authors Plot
-    st.subheader("Most Common Authors")
-    fig3 = plot_common_authors(data)
-    st.plotly_chart(fig3)
-    st.markdown("These are your top authors based on the number of their books in your library.")
+    # Most Common Authors - Side by side comparison
+    col1, col2 = st.columns(2)
 
-    # Most Common Authors in 2023
-    st.subheader("Most Common Authors in 2023")
-    fig4 = plot_common_authors(data, year=2023)
-    st.plotly_chart(fig4)
-    st.markdown("In 2023, these authors dominated your reading list.")
+    with col1:
+        st.subheader("Most Common Authors")
+        fig3 = plot_common_authors(data)
+        st.plotly_chart(fig3)
+        st.markdown("These are your top authors based on the number of their books in your library.")
+
+    with col2:
+        st.subheader("Most Common Authors in 2023")
+        fig4 = plot_common_authors(data, year=2023)
+        st.plotly_chart(fig4)
+        st.markdown("In 2023, these authors dominated your reading list.")
 
     # Books by Publication Year
     st.subheader("Distribution of Books by Publication Year")
