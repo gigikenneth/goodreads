@@ -101,6 +101,9 @@ st.markdown("""
 # Sidebar for file upload and year selection
 # Sidebar for file upload and year selection
 with st.sidebar:
+    # Initialize uploaded_file to None
+    uploaded_file = None
+
     # Option for users to select the dataset source
     dataset_source = st.radio(
         "Choose your dataset source",
