@@ -106,11 +106,12 @@ with st.sidebar:
         if uploaded_file is not None:
             data = load_data(uploaded_file)
     else:
+        uploaded_file = None  # Define uploaded_file as None for the 'Use example dataset' option
         # Load the example dataset from GitHub
         example_data_url = "https://raw.githubusercontent.com/gigikenneth/goodreads/main/goodreads_library_export.csv"
         data = load_data(example_data_url)
 
-    # If data is loaded, allow year selection
+    # Check if data is loaded for year selection
     if 'data' in locals():
         min_year = int(data['Date Added'].dt.year.min())
         max_year = int(data['Date Added'].dt.year.max())
@@ -118,6 +119,7 @@ with st.sidebar:
 
     st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
     st.sidebar.markdown('Made chaotically at 3am🌪️ by [Gigi](https://github.com/gigikenneth)')
+
 
 
 # with st.sidebar:
