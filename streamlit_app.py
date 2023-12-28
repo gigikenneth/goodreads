@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from collections import Counter
-import datetime
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
@@ -120,20 +119,7 @@ with st.sidebar:
     st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
     st.sidebar.markdown('Made chaotically at 3am🌪️ by [Gigi](https://github.com/gigikenneth)')
 
-
-
-# with st.sidebar:
-#     uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
-#     if uploaded_file is not None:
-#         data = load_data(uploaded_file)
-#         min_year = int(data['Date Added'].dt.year.min())
-#         max_year = int(data['Date Added'].dt.year.max())
-#         year = st.select_slider("Select Year", options=range(min_year, max_year + 1), value=max_year)
-#     st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
-#     st.sidebar.markdown('Made chaotically at 3am🌪️ by [Gigi](https://github.com/gigikenneth)')
-
-
-
+# Visualization code 
 if uploaded_file is not None:
     # Book Ratings Plot - Side by side comparison
     col1, col2 = st.columns(2)
@@ -202,4 +188,5 @@ if uploaded_file is not None:
         read_books_year = read_books[read_books['Date Read'].dt.year == year]
         fig_wc_year = generate_wordcloud(read_books_year, f"In {year}")
         st.pyplot(fig_wc_year)
+
 
