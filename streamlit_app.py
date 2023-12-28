@@ -99,6 +99,7 @@ st.markdown("""
 """)
 
 # Sidebar for file upload and year selection
+# Sidebar for file upload and year selection
 with st.sidebar:
     # Option for users to select the dataset source
     dataset_source = st.radio(
@@ -111,10 +112,12 @@ with st.sidebar:
         if uploaded_file is not None:
             data = load_data(uploaded_file)
     else:
-        uploaded_file = None  # Define uploaded_file as None for the 'Use example dataset' option
         # Load the example dataset from GitHub
         example_data_url = "https://raw.githubusercontent.com/gigikenneth/goodreads/main/goodreads_library_export.csv"
-        data = load_data(example_data_url)
+        try:
+            data = load_data(example_data_url)
+        except Exception as e:
+            st.error(f"Failed to load the example dataset. Error: {e}")
 
     # Check if data is loaded for year selection
     if 'data' in locals():
