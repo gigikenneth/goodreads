@@ -81,6 +81,18 @@ st.set_page_config(page_title="Goodreads Wrapped", layout="wide")
 # Main Streamlit app
 st.title("Goodreads Wrapped")
 
+# Instructions
+st.markdown("""
+    **Instructions:**
+    1. Export your Goodreads library to a CSV file.
+       - Go to 'My Books' on Goodreads.
+       - Under 'Tools' on the left, click on 'Import and Export'.
+       - Click 'Export Library' to generate your CSV file.
+       - Download the CSV file once it's ready.
+    2. Upload your CSV file here to see the visualizations.
+    3. Explore various insights about your reading habits!
+""")
+
 # Sidebar for file upload and year selection
 with st.sidebar:
     uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
