@@ -20,6 +20,16 @@ def plot_book_ratings(data, year=None):
                        color_discrete_sequence=["lightblue"])
     return fig
 
+# Function for most common authors
+def plot_common_authors(data, year=None):
+    if year:
+        data = data[data['Date Added'].dt.year == year]
+    author_counts = Counter(data['Author'])
+    authors_df = pd.DataFrame(author_counts.most_common(10), columns=['Author', 'Count'])
+    fig = px.bar(authors_df, x='Count', y='Author', title=f'Most Common Authors {"in " + str(year) if year else ""}',
+                 orientation='h', color_discrete_sequence=["lightpink"])
+    return fig
+
 # Function for cumulative books plot
 def plot_cumulative_books(data, year=None):
     if year:
@@ -91,27 +101,38 @@ if uploaded_file is not None:
         fig4 = plot_cumulative_books(data, year=year)
         st.plotly_chart(fig4)
 
+    # Most Common Authors - Side by side comparison
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Most Common Authors")
+        fig5 = plot_common_authors(data)
+        st.plotly_chart(fig5)
+    with col2:
+        st.subheader(f"Most Common Authors in {year}")
+        fig6 = plot_common_authors(data, year=year)
+        st.plotly_chart(fig6)
+
     # Book Lengths Plot - Side by side comparison
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Distribution of Book Lengths")
-        fig5 = plot_book_lengths(data)
-        st.plotly_chart(fig5)
+        fig7 = plot_book_lengths(data)
+        st.plotly_chart(fig7)
     with col2:
         st.subheader(f"Distribution of Book Lengths in {year}")
-        fig6 = plot_book_lengths(data, year=year)
-        st.plotly_chart(fig6)
+        fig8 = plot_book_lengths(data, year=year)
+        st.plotly_chart(fig8)
 
     # Read vs. Unread Books Plot - Side by side comparison
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Read vs. Unread Books")
-        fig7 = plot_read_unread_books(data)
-        st.plotly_chart(fig7)
+        fig9 = plot_read_unread_books(data)
+        st.plotly_chart(fig9)
     with col2:
         st.subheader(f"Read vs. Unread Books in {year}")
-        fig8 = plot_read_unread_books(data, year=year)
-        st.plotly_chart(fig8)
+        fig10 = plot_read_unread_books(data, year=year)
+        st.plotly_chart(fig10)
 
 # Run this code in your Python environment after installing plotly and streamlit using 'pip install plotly streamlit'
 # You can start the app by running 'streamlit run your_script_name.py' in the terminal
