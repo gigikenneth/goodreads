@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 from collections import Counter
 import datetime
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 # Function to load data
 def load_data(uploaded_file):
@@ -62,6 +64,16 @@ def plot_read_unread_books(data, year=None):
     fig = px.pie(names=labels, values=counts, title=f'Read vs. Unread Books {"in " + str(year) if year else ""}',
                  color_discrete_sequence=["lightgreen", "lightblue"])
     return fig
+
+# Function to generate a word cloud
+def generate_wordcloud(data, title):
+    text = ' '.join(data['Title'].dropna().tolist())
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis('off')
+    plt.title(title, fontsize=18)
+    return plt
 
 # Customizing Streamlit's theme
 st.set_page_config(page_title="Goodreads Wrapped", layout="wide")
@@ -134,5 +146,18 @@ if uploaded_file is not None:
         fig10 = plot_read_unread_books(data, year=year)
         st.plotly_chart(fig10)
 
-# Run this code in your Python environment after installing plotly and streamlit using 'pip install plotly streamlit'
+    # Word Clouds - Side by side comparison
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Word Cloud of Book Titles Read")
+        read_books = data[data['Read Count'] > 0]
+        fig_wc_all = generate_wordcloud(read_books, "All Time")
+        st.pyplot(fig_wc_all)
+    with col2:
+        st.subheader(f"Word Cloud of Book Titles Read in {year}")
+        read_books_year = read_books[read_books['Date Read'].dt.year == year]
+        fig_wc_year = generate_wordcloud(read_books_year, f"In {year}")
+        st.pyplot(fig_wc_year)
+
+# Run this code in your Python environment after installing the necessary libraries
 # You can start the app by running 'streamlit run your_script_name.py' in the terminal
