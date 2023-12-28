@@ -95,7 +95,7 @@ st.markdown("""
 
 # Sidebar for file upload and year selection
 with st.sidebar:
-    uploaded_file = st.file_uploader("**Upload your Goodreads CSV**", type="csv")
+    uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
     if uploaded_file is not None:
         data = load_data(uploaded_file)
         min_year = int(data['Date Added'].dt.year.min())
