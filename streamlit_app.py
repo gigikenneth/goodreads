@@ -8,8 +8,6 @@ import matplotlib.pyplot as plt
 
 # Add GitHub icon and "Fork this repo" link
 st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
-st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank">Fork this repo</a>', unsafe_allow_html=True)
-
 
 # Function to load data
 def load_data(uploaded_file):
