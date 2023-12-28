@@ -95,14 +95,40 @@ st.markdown("""
 
 # Sidebar for file upload and year selection
 with st.sidebar:
-    uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
-    if uploaded_file is not None:
-        data = load_data(uploaded_file)
+    # Option for users to select the dataset source
+    dataset_source = st.radio(
+        "Choose your dataset source",
+        ('Upload my dataset', 'Use example dataset')
+    )
+
+    if dataset_source == 'Upload my dataset':
+        uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
+        if uploaded_file is not None:
+            data = load_data(uploaded_file)
+    else:
+        # Load the example dataset from GitHub
+        example_data_url = "https://raw.githubusercontent.com/gigikenneth/goodreads/blob/main/goodreads_library_export.csv"
+        data = load_data(example_data_url)
+
+    # If data is loaded, allow year selection
+    if 'data' in locals():
         min_year = int(data['Date Added'].dt.year.min())
         max_year = int(data['Date Added'].dt.year.max())
         year = st.select_slider("Select Year", options=range(min_year, max_year + 1), value=max_year)
+
     st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
     st.sidebar.markdown('Made chaotically at 3am🌪️ by [Gigi](https://github.com/gigikenneth)')
+
+
+# with st.sidebar:
+#     uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
+#     if uploaded_file is not None:
+#         data = load_data(uploaded_file)
+#         min_year = int(data['Date Added'].dt.year.min())
+#         max_year = int(data['Date Added'].dt.year.max())
+#         year = st.select_slider("Select Year", options=range(min_year, max_year + 1), value=max_year)
+#     st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
+#     st.sidebar.markdown('Made chaotically at 3am🌪️ by [Gigi](https://github.com/gigikenneth)')
 
 
 
