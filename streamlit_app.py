@@ -101,7 +101,7 @@ with st.sidebar:
         min_year = int(data['Date Added'].dt.year.min())
         max_year = int(data['Date Added'].dt.year.max())
         year = st.select_slider("Select Year", options=range(min_year, max_year + 1), value=max_year)
-st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
 
 
 if uploaded_file is not None:
