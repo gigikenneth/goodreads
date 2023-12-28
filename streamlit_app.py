@@ -170,3 +170,5 @@ if uploaded_file is not None:
         read_books_year = read_books[read_books['Date Read'].dt.year == year]
         fig_wc_year = generate_wordcloud(read_books_year, f"In {year}")
         st.pyplot(fig_wc_year)
+
+st.markdown('<a href="https://github.com/gigikenneth/goodreads" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="30" height="30" alt="GitHub"></a>', unsafe_allow_html=True)
