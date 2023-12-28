@@ -42,8 +42,9 @@ def plot_cumulative_books(data, year=None):
         data = data[data['Date Added'].dt.year == year]
     data_sorted = data.sort_values('Date Added')
     data_sorted['Cumulative Books'] = range(1, len(data_sorted) + 1)
-    fig = px.line(data_sorted, x='Date Added', y='Cumulative Books', title=f'Cumulative Number of Books Added Over Time {"in " + str(year) if year else ""}',
-                  line_shape='spline', line_color="lightblue")
+    fig = px.line(data_sorted, x='Date Added', y='Cumulative Books', 
+                  title=f'Cumulative Number of Books Added Over Time {"in " + str(year) if year else ""}',
+                  color_discrete_sequence=['lightblue'])
     return fig
 
 # Function for the distribution of book lengths
