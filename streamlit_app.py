@@ -98,7 +98,7 @@ st.markdown("""
     3. Explore various insights about your reading habits!
 """)
 
-# Initialize data to None
+uploaded_file = None
 data = None
 
 # Sidebar for file upload and year selection
