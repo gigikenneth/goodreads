@@ -8,13 +8,11 @@ import matplotlib.pyplot as plt
 # Path to the local example CSV file
 example_csv_file = "goodreads_library_export.csv"
 
-# Function to load data
-def load_data(uploaded_file):
-    if isinstance(uploaded_file, str):
-        data = pd.read_csv(uploaded_file)
-    else:
-        # Assuming uploaded_file is a file-like object
-        data = pd.read_csv(uploaded_file)
+# Simplified function to load data
+def load_data(file_path):
+    st.write(f"Loading data from: {file_path}")  # Debugging information
+    data = pd.read_csv(file_path)
+    return data
 
     data['Date Added'] = pd.to_datetime(data['Date Added'], errors='coerce')
     data['Date Read'] = pd.to_datetime(data['Date Read'], errors='coerce')
@@ -103,23 +101,21 @@ st.markdown("""
 
 # Sidebar for file upload and year selection
 with st.sidebar:
-    # Initialize uploaded_file to None
     uploaded_file = None
-
-    # Option for users to select the dataset source
-    dataset_source = st.radio(
-        "Choose your dataset source",
-        ('Upload my dataset', 'Use example dataset')
-    )
+    dataset_source = st.radio("Choose your dataset source",
+                              ('Upload my dataset', 'Use example dataset'))
 
     if dataset_source == 'Upload my dataset':
         uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
-        if uploaded_file is not None:
-            data = load_data(uploaded_file)
     elif dataset_source == 'Use example dataset':
-        # Load the dataset from the local example file
-        data = load_data(example_csv_file)
+        data = load_data("goodreads_library_export.csv")
 
+# Display data for debugging
+if 'data' in locals():
+    st.write("Data loaded successfully.")
+    st.write(data.head()) 
+
+    
     # Check if data is loaded for year selection
     if 'data' in locals():
         min_year = int(data['Date Added'].dt.year.min())
