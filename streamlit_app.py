@@ -5,6 +5,9 @@ from collections import Counter
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+# Path to the local example CSV file
+example_csv_file = "goodreads_library_export.csv"
+
 # Function to load data
 def load_data(uploaded_file):
     if isinstance(uploaded_file, str):
@@ -113,13 +116,9 @@ with st.sidebar:
         uploaded_file = st.file_uploader("Upload your Goodreads CSV", type="csv")
         if uploaded_file is not None:
             data = load_data(uploaded_file)
-    else:
-        # Load the example dataset from GitHub
-        example_data_url = "https://raw.githubusercontent.com/gigikenneth/goodreads/main/goodreads_library_export.csv"
-        try:
-            data = load_data(example_data_url)
-        except Exception as e:
-            st.error(f"Failed to load the example dataset. Error: {e}")
+    elif dataset_source == 'Use example dataset':
+        # Load the dataset from the local example file
+        data = load_data(example_csv_file)
 
     # Check if data is loaded for year selection
     if 'data' in locals():
